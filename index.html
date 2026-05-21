@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizPoint</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="home-backround">
+    <div class="container">
+        <div class="header finisher-header" style="width: 100%; height: 100vh; position: fixed; top: 0; left: 0; z-index: -1;">
+        </div>
+        <!-- Decorative elements -->
+        <div class="coffee-bean bean-1">
+            <i class="fas fa-coffee" style="font-size: 80px; color: #8b4513;"></i>
+        </div>
+        <div class="coffee-bean bean-2">
+            <i class="fas fa-coffee" style="font-size: 80px; color: #8b4513;"></i>
+        </div>
+        <div class="coffee-bean bean-3">
+            <i class="fas fa-mountain" style="font-size: 70px; color: #5a7d5a;"></i>
+        </div>
+        <div class="coffee-bean bean-4">
+            <i class="fas fa-water" style="font-size: 70px; color: #4a7ba6;"></i>
+        </div>
+        <header>
+            <h1>QuizPoint</h1>
+            <p class="slogan">Pengetahuan umum, langkah awal jadi lebih tahu</p>
+        </header>
+       
+        <div class="categories">
+            <h2>Quiz Features</h2>
+           
+            <div class="category-grid">
+                <div class="category-card">
+                    <div class="card-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Timer</h3>
+                    <p>Waktu mengerjakan soal 15 detik</p>
+                </div>
+               
+                <div class="category-card">
+                    <div class="card-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3>Quiz</h3>
+                    <p>Berisi soal soal umum yang menarik</p>
+                </div>
+               
+                <div class="category-card">
+                    <div class="card-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Skor</h3>
+                    <p>Penentuan kategori skor diakhir</p>
+                </div>
+               
+                <div class="category-card">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Level</h3>
+                    <p>Setiap soal memiliki tingkat level berbeda</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="description">
+            <p>Kalau penasaran dicoba saja yaa - Admin inisial D</p>
+        </div>
+       
+        <div class="actions">
+            <a href="/quiz" class="btn btn-play">
+                <i class="fas fa-play"></i> Start Quiz
+            </a>
+            <a href="/about" class="btn btn-about">
+                <i class="fas fa-users"></i> About Admins
+            </a>
+        </div>
+
+        <div class="audio-controls">
+            <button id="music-toggle" class="audio-btn">
+                <i class="fas fa-volume-up"></i> Background Music
+            </button>
+            <button id="sound-toggle" class="audio-btn">
+                <i class="fas fa-bell"></i> Sound Effects
+            </button>
+        </div>
+
+        <!-- Background music -->
+        <audio id="background-music" loop preload="auto">
+            <source src="sounds/Carefree  Kevin MacLeod (No Copyright Music).mp3" type="audio/mpeg">
+        </audio>
+    </div>
+   
+    <script>
+    // Solusi: Simulasi interaksi pengguna untuk mem-bypass autoplay policy
+    document.addEventListener('DOMContentLoaded', function() {
+        const musicToggle = document.getElementById('music-toggle');
+        const soundToggle = document.getElementById('sound-toggle');
+        const backgroundMusic = document.getElementById('background-music');
+        
+        // Set volume rendah
+        backgroundMusic.volume = 0.3;
+        
+        // Check user preferences
+        let musicEnabled = localStorage.getItem('musicEnabled') !== 'false';
+        let soundEnabled = localStorage.getItem('soundEnabled') !== 'false';
+        
+        // Set initial UI state
+        if (musicEnabled) {
+            musicToggle.innerHTML = '<i class="fas fa-volume-up"></i> Background Music';
+            musicToggle.classList.add('active');
+        } else {
+            musicToggle.innerHTML = '<i class="fas fa-volume-mute"></i> Background Music';
+            musicToggle.classList.remove('active');
+        }
+        
+        if (soundEnabled) {
+            soundToggle.innerHTML = '<i class="fas fa-bell"></i> Sound Effects';
+            soundToggle.classList.add('active');
+        } else {
+            soundToggle.innerHTML = '<i class="fas fa-bell-slash"></i> Sound Effects';
+            soundToggle.classList.remove('active');
+        }
+        
+        // TRIK: Buat button tak terlihat untuk simulasi interaksi
+        function createHiddenInteraction() {
+            const hiddenButton = document.createElement('button');
+            hiddenButton.style.position = 'absolute';
+            hiddenButton.style.opacity = '0';
+            hiddenButton.style.pointerEvents = 'none';
+            hiddenButton.style.height = '1px';
+            hiddenButton.style.width = '1px';
+            hiddenButton.id = 'hidden-interaction';
+            document.body.appendChild(hiddenButton);
+            
+            // Fokus dan klik secara programatik (tapi hati-hati dengan kebijakan browser)
+            setTimeout(() => {
+                try {
+                    hiddenButton.focus();
+                    hiddenButton.click();
+                } catch (e) {
+                    console.log("Hidden interaction not allowed");
+                }
+            }, 100);
+        }
+        
+        // Coba putar musik dengan beberapa teknik
+        function attemptAutoPlay() {
+            if (!musicEnabled || !backgroundMusic.paused) return;
+            
+            // Teknik 1: Coba langsung putar
+            const playPromise = backgroundMusic.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    console.log("Autoplay successful!");
+                }).catch(error => {
+                    console.log("Autoplay blocked, trying alternative method...");
+                    
+                    // Teknik 2: Coba setelah user berinteraksi dengan halaman
+                    const interactivePlay = () => {
+                        backgroundMusic.play().then(() => {
+                            console.log("Playback started after interaction");
+                            // Hapus event listeners
+                            document.removeEventListener('click', interactivePlay);
+                            document.removeEventListener('keydown', interactivePlay);
+                            document.removeEventListener('touchstart', interactivePlay);
+                        }).catch(e => {
+                            console.log("Still blocked");
+                        });
+                    };
+                    
+                    // Tambahkan event listeners untuk interaksi
+                    document.addEventListener('click', interactivePlay, { once: true });
+                    document.addEventListener('keydown', interactivePlay, { once: true });
+                    document.addEventListener('touchstart', interactivePlay, { once: true });
+                    
+                    // Teknik 3: Coba lagi setelah beberapa waktu
+                    setTimeout(() => {
+                        if (backgroundMusic.paused) {
+                            backgroundMusic.play().catch(e => {
+                                console.log("Final attempt failed");
+                            });
+                        }
+                    }, 2000);
+                });
+            }
+        }
+        
+        // Panggil fungsi attemptAutoPlay setelah halaman dimuat
+        window.addEventListener('load', function() {
+            // Tunggu sebentar untuk memastikan semua resource terload
+            setTimeout(attemptAutoPlay, 500);
+        });
+        
+        // Juga coba saat DOM siap
+        setTimeout(attemptAutoPlay, 1000);
+        
+        // Toggle music button
+        musicToggle.addEventListener('click', function() {
+            if (backgroundMusic.paused) {
+                backgroundMusic.play().then(() => {
+                    this.innerHTML = '<i class="fas fa-volume-up"></i> Background Music';
+                    localStorage.setItem('musicEnabled', 'true');
+                    musicEnabled = true;
+                    this.classList.add('active');
+                }).catch(error => {
+                    console.error("Error playing music:", error);
+                });
+            } else {
+                backgroundMusic.pause();
+                this.innerHTML = '<i class="fas fa-volume-mute"></i> Background Music';
+                localStorage.setItem('musicEnabled', 'false');
+                musicEnabled = false;
+                this.classList.remove('active');
+            }
+        });
+        
+        // Toggle sound effects button
+        soundToggle.addEventListener('click', function() {
+            soundEnabled = !soundEnabled;
+            localStorage.setItem('soundEnabled', soundEnabled.toString());
+            
+            if (soundEnabled) {
+                this.innerHTML = '<i class="fas fa-bell"></i> Sound Effects';
+                this.classList.add('active');
+            } else {
+                this.innerHTML = '<i class="fas fa-bell-slash"></i> Sound Effects';
+                this.classList.remove('active');
+            }
+        });
+        
+        // Trik tambahan: Coba putar musik saat halaman pertama kali di-scroll
+        let scrollAttempted = false;
+        window.addEventListener('scroll', function() {
+            if (!scrollAttempted && musicEnabled && backgroundMusic.paused) {
+                scrollAttempted = true;
+                backgroundMusic.play().then(() => {
+                    console.log("Music started after scroll");
+                }).catch(e => {
+                    console.log("Scroll autoplay failed");
+                });
+            }
+        }, { once: true });
+        
+        // Trik: Coba putar musik saat user pertama kali menggerakkan mouse
+        let mouseMoved = false;
+        document.addEventListener('mousemove', function() {
+            if (!mouseMoved && musicEnabled && backgroundMusic.paused) {
+                mouseMoved = true;
+                backgroundMusic.play().then(() => {
+                    console.log("Music started after mouse movement");
+                }).catch(e => {
+                    console.log("Mouse movement autoplay failed");
+                });
+            }
+        }, { once: true });
+    });
+    </script>
+    
+    <script src="js/finisher-header.es5.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    new FinisherHeader({
+        "count": 10,
+        "size": {
+            "min": 2,
+            "max": 150,
+            "pulse": 0
+        },
+        "speed": {
+            "x": {
+                "min": 0,
+                "max": 1.5
+            },
+            "y": {
+                "min": 0,
+                "max": 0.2
+            }
+        },
+        "colors": {
+            "background": "#e3ceb9",
+            "particles": [
+                "#b08a70",
+                "#f6efea",
+                "#f1e4d8",
+                "#fff9f5",
+                "#d39c6a"
+            ]
+        },
+        "blending": "screen",
+        "opacity": {
+            "center": 1,
+            "edge": 1
+        },
+        "skew": -1,
+        "shapes": [
+            "c",
+            "s",
+            "t"
+        ]
+    });
+    </script>
+</body>
+</html>

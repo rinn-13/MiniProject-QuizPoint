@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adventure Quiz - Play</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="quiz-background">
+    <div class="container">
+        <!-- Decorative elements -->
+        <div class="coffee-bean bean-1">
+            <i class="fas fa-coffee" style="font-size: 80px; color: #8b4513;"></i>
+        </div>
+        <div class="coffee-bean bean-2">
+            <i class="fas fa-coffee" style="font-size: 80px; color: #8b4513;"></i>
+        </div>
+        <div class="coffee-bean bean-3">
+            <i class="fas fa-mountain" style="font-size: 70px; color: #5a7d5a;"></i>
+        </div>
+        <div class="coffee-bean bean-4">
+            <i class="fas fa-water" style="font-size: 70px; color: #4a7ba6;"></i>
+        </div>
+
+        <header>
+            <h1>QuizPoint</h1>
+            <a href="/" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+            <div class="progress-container">
+                <div class="coffee-progress">
+                    <div class="coffee-cup">
+                        <div class="coffee-liquid" id="coffee-progress"></div>
+                    </div>
+                    <span class="progress-text" id="progress-text">0/15</span>
+                </div>
+                <div class="timer-container">
+                    <div class="timer-circle">
+                        <svg class="timer-svg" viewBox="0 0 100 100">
+                            <circle class="timer-circle-bg" cx="50" cy="50" r="45"></circle>
+                            <circle class="timer-circle-progress" cx="50" cy="50" r="45"></circle>
+                        </svg>
+                        <span class="timer-text" id="timer-text">15</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+       
+<main class="quiz-main">
+    <div class="level-indicator" id="level-indicator">
+        Level 1: Beginner Explorer
+    </div>
+   
+    <div id="question-container" class="hidden">
+        <h2 id="question">Loading questions...</h2>
+        <div id="options-container" class="hidden">
+            <!-- Options will be loaded by JavaScript -->
+        </div>
+    </div>
+   
+    <div id="joke-container" class="hidden">
+        <p id="joke-text"></p>
+    </div>
+   
+    <div id="results-container" class="hidden">
+        <h2 id="result-title"></h2>
+        <div class="score-display">
+            <span id="score-value">0</span>/<span id="total-questions">15</span>
+        </div>
+        <p id="result-message"></p>
+        <div class="result-actions">
+            <button id="play-again-btn" class="btn btn-play">
+                <i class="fas fa-redo"></i> Play Again
+            </button>
+            <a href="/" class="btn btn-about">
+                <i class="fas fa-home"></i> Back to Home
+            </a>
+        </div>
+    </div>
+</main>
+
+        <div class="audio-controls-quiz">
+            <button id="music-toggle-quiz" class="audio-btn">
+                 <i class="fas fa-volume-up"></i> Music
+            </button>
+            <button id="sound-toggle-quiz" class="audio-btn">
+                <i class="fas fa-bell"></i> Sounds
+            </button>
+        </div>
+    </div>
+
+    <!-- Audio Elements -->
+    <audio id="correct-sound" preload="auto">
+        <source src="sounds/Correct Sound Effect.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="wrong-sound" preload="auto">
+        <source src="sounds/Wrong Answer Sound effect.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="timeout-sound" preload="auto">
+        <source src="" type="audio/mpeg">
+    </audio>
+    <audio id="levelup-sound" preload="auto">
+        <source src="" type="audio/mpeg">
+    </audio>
+    <audio id="background-music-quiz" loop preload="auto">
+        <source src="sounds/Quiz.backsound.mp3" type="audio/mpeg">
+    </audio>
+
+
+    <script src="/js/script.js"></script>
+</body>
+</html>
